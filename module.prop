@@ -1,0 +1,6 @@
+id=mishare_miui_core
+name=MiSharePlus (内置MIUI-Core)
+version=1.0
+versionCode=1
+author=合并版 by Keaeye
+description=让非小米设备也能使用小米互传（集成MiShare和MIUI-Core模块）
