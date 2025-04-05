@@ -1,24 +1,27 @@
-name: Build Magisk Module
+name: Build and Release Magisk Module
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    tags:
+      - 'v*'
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Zip Magisk Module
+      - name: Zip Module
         run: |
           mkdir output
           zip -r output/MiSharePlus-MagiskModule.zip . -x ".git/*" -x ".github/*"
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3.1.3
+      - name: Create Release and Upload
+        uses: softprops/action-gh-release@v1
         with:
-          name: MiSharePlus-MagiskModule
-          path: output/MiSharePlus-MagiskModule.zip
+          name: MiSharePlus Magisk Module
+          tag_name: ${{ github.ref_name }}
+          files: output/MiSharePlus-MagiskModule.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
