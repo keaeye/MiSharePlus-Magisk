@@ -7,7 +7,6 @@ on:
         description: 'Release tag (e.g. v1.0.1)'
         required: true
 
-
   push:
     tags:
       - 'v*'
@@ -27,11 +26,18 @@ jobs:
           zip -r output/MiSharePlus-MagiskModule.zip . \
             -x ".git/*" ".github/*" "output/*" "*.md" "*.yml" "*.yaml"
 
+      - name: Get release notes from CHANGELOG
+        id: changelog
+        run: |
+          release_notes=$(head -n 10 CHANGELOG.md) # 获取 CHANGELOG.md 文件的前 10 行
+          echo "::set-output name=notes::$release_notes" # 设置输出
+
       - name: Upload Release to GitHub
         uses: softprops/action-gh-release@v1
         with:
           name: MiSharePlus Magisk Module
           tag_name: ${{ github.ref_name }}
           files: output/MiSharePlus-MagiskModule.zip
+          body: ${{ steps.changelog.outputs.notes }}  # 使用从 CHANGELOG.md 提取的说明
         env:
-          GITHUB_TOKEN: ${{ secrets.MISHARE_GITHUB_TOKEN }}  
+          GITHUB_TOKEN: ${{ secrets.MISHARE_GITHUB_TOKEN }}
