@@ -7,7 +7,7 @@ on:
         description: 'Release tag (e.g. v1.0.1)'
         required: true
 
-  # 推送 tag 自动发布（例如 v1.0.0）
+
   push:
     tags:
       - 'v*'
@@ -34,4 +34,4 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: output/MiSharePlus-MagiskModule.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.MISHARE_GITHUB_TOKEN }}  # 使用你添加的密钥名称
+          GITHUB_TOKEN: ${{ secrets.MISHARE_GITHUB_TOKEN }}  
