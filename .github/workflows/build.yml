@@ -15,7 +15,6 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
@@ -35,4 +34,4 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: output/MiSharePlus-MagiskModule.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MISHARE_GITHUB_TOKEN }}  # 使用你添加的密钥名称
