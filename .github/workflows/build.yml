@@ -1,6 +1,10 @@
 name: Build and Release Magisk Module
 
 on:
+  # 手动触发按钮
+  workflow_dispatch:
+
+  # 推送 tag 自动发布（例如 v1.0.0）
   push:
     tags:
       - 'v*'
@@ -8,16 +12,20 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout source code
         uses: actions/checkout@v3
 
-      - name: Zip Module
-        run: |
-          mkdir output
-          zip -r output/MiSharePlus-MagiskModule.zip . -x ".git/*" -x ".github/*"
+      - name: Clean up old outputs
+        run: rm -rf output && mkdir output
 
-      - name: Create Release and Upload
+      - name: Zip Magisk Module
+        run: |
+          zip -r output/MiSharePlus-MagiskModule.zip . \
+            -x ".git/*" ".github/*" "output/*" "*.md" "*.yml" "*.yaml"
+
+      - name: Upload Release to GitHub
         uses: softprops/action-gh-release@v1
         with:
           name: MiSharePlus Magisk Module
