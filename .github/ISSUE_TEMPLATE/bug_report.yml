@@ -1,0 +1,72 @@
+name: 问题反馈
+description: 提交一个 Bug 或安装相关问题报告
+title: "[Bug] 请简要描述你的问题"
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你的反馈！请尽量详细填写以下内容，以便我们更快定位问题。
+
+  - type: input
+    id: device
+    attributes:
+      label: 设备型号
+      placeholder: 例如：Redmi Note 7
+    validations:
+      required: true
+
+  - type: input
+    id: android_version
+    attributes:
+      label: Android 版本
+      placeholder: 例如：Android 11（SDK 30）
+    validations:
+      required: true
+
+  - type: input
+    id: magisk_version
+    attributes:
+      label: Magisk / KernelSU 版本
+      placeholder: 例如：Magisk v26.4 或 KernelSU v11200
+    validations:
+      required: true
+
+  - type: dropdown
+    id: rom_type
+    attributes:
+      label: ROM 类型
+      options:
+        - AOSP / 类原生
+        - MIUI
+        - ColorOS / OxygenOS / RealmeUI
+        - 其他（请在下方描述）
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: 问题描述
+      description: 尽可能详细地描述你遇到的问题、日志、截图等。
+      placeholder: |
+        - 出现的问题
+        - 安装方式（通过 Magisk App 还是 Recovery）
+        - 是否重启后出现问题
+        - 有没有尝试重新安装模块
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 提交前检查项
+      options:
+        - label: 我已确保系统不为 MIUI ROM。
+          required: true
+        - label: 我的架构为 ARM64-V8A 或 ARMEABI-V7A。
+          required: true
+        - label: 我已安装 Magisk 或 KernelSU。
+          required: true
+        - label: 我已经阅读过 README 文档。
+          required: true
